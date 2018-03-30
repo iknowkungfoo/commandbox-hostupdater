@@ -111,9 +111,9 @@ component accessors="true" singleton {
 
 		if ( !variables.fileSystem.isWindows() ) {
 			if (variables.fileSystem.isMac()) {
-				sudo( "sed -i '.bak' '$ a #arguments.entry#'  #getHostsFileName()#" );
+				sudo( "sed -i '' '$ a #arguments.entry#' #getHostsFileName()#" );
 			} else {
-				sudo( "sed -i '$ a #arguments.entry#'  #getHostsFileName()#" );
+				sudo( "sed -i '$ a #arguments.entry#' #getHostsFileName()#" );
 			}
 		} else {
 			 variables.hostaliases.append( arguments.entry );

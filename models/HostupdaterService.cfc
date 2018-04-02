@@ -85,8 +85,13 @@ component accessors="true" singleton {
 
 	private void function removeOldEntriesFromHostsfile( required string id_or_hostname ){
 
-		if( !variables.fileSystem.isWindows() )
-			sudo( "sed -i 's/.*#arguments.id_or_hostname.replace('.', '\.', 'all')#.*//' #getHostsFileName()#" );
+		if( !variables.fileSystem.isWindows() ) {
+			if (variables.fileSystem.isMac()) {
+				sudo( "sed -i '' 's/.*#arguments.id_or_hostname.replace('.', '\.', 'all')#.*//' #getHostsFileName()#" );
+			} else {
+				sudo( "sed -i 's/.*#arguments.id_or_hostname.replace('.', '\.', 'all')#.*//' #getHostsFileName()#" );
+			}
+		}
 		else
 			removeMatchingLines( [id_or_hostname] );
 
